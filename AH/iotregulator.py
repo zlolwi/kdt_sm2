@@ -2,6 +2,7 @@ import wiotp.sdk
 import sys
 import json
 import time
+import psutil
 
 # ibm iot platform device credential here
 deviceOptions = {

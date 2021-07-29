@@ -5,7 +5,7 @@ import time
 
 # ibm iot platform device credential here
 deviceOptions = {
-    "identity": {"orgId": "90j0ad", "typeId": "vDev", "deviceId": "vSwitch"},
+    "identity": {"orgId": "90j0ad", "typeId": "vDev", "deviceId": "vRegulator"},
     "auth": {"token": "passw0rd"},
 }
 

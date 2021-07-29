@@ -38,4 +38,4 @@ def periodicPublish():
 
 while True:
     periodicPublish()
-    sleep(10)
+    sleep(3)

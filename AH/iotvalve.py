@@ -15,11 +15,11 @@ def commandProcessor(cmd):
     if cmd.data["d"]["valve"]:
         data = {}
         if cmd.data["d"]["valve"] == "on":
-            lamp = 'on'
+            valve = 'on'
             print("Valve is On")
             data = {"d": {"valve": "on"}}
         else:
-            lamp = 'off'
+            valve = 'off'
             print("Valve is Off")
             data = {"d": {"valve": "off"}}
         deviceCli.publishEvent("status", "json", data, qos=0)

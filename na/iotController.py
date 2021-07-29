@@ -20,7 +20,7 @@ deviceCli.connect()
 
 print("")
 
-if sys.argv[2] < str.argv[1] :
+if Integer(sys.argv[2]) < Integer(str.argv[1]):
     data = {"d": {"controller":  "on"}}
     print( "현재온도: {}", 현재온도)
 

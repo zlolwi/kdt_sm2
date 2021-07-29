@@ -32,6 +32,6 @@ deviceCli.publishEvent("status", "json", data, qos=0)
 print ("명령을 보내고 있습니다. => " + json.dumps.(data))
 
 #,, 음 연결을 어떻게하지...
-
+#
 
 time.sleep(2)

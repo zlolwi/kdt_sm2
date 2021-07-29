@@ -15,19 +15,11 @@ def commandProcessor(cmd):
     if cmd.data["d"]["valve"]:
         data = {}
         if cmd.data["d"]["valve"] == "on":
-<<<<<<< HEAD
-            valve = 'on'
-            print("Valve is On")
-            data = {"d": {"valve": "on"}}
-        else:
-            valve = 'off'
-=======
             lamp = 'on'
             print("Valve is On")
             data = {"d": {"valve": "on"}}
         else:
             lamp = 'off'
->>>>>>> main
             print("Valve is Off")
             data = {"d": {"valve": "off"}}
         deviceCli.publishEvent("status", "json", data, qos=0)
@@ -46,8 +38,4 @@ def periodicPublish():
 
 while True:
     periodicPublish()
-<<<<<<< HEAD
-    sleep(3)
-=======
     sleep(10)
->>>>>>> main

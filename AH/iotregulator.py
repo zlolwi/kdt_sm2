@@ -12,7 +12,7 @@ deviceOptions = {
 deviceCli = wiotp.sdk.device.DeviceClient(deviceOptions)
 deviceCli.connect()
 
-# 온도를 받고 온도 비교하는 단순 python code 
+# 온도를 받고 온도 비교하는 단순 python code
 room_temp = float(input("현재 방 온도: "))
 setting_temp = float(input("셋팅 온도 설정: "))
 

@@ -16,3 +16,4 @@
 - iotReg.py: NODE-RED Dashboard를 사용하여 슬라이더(온도계) 2개로 현재 온도오 설정 온도를 입력 받아 작동 제어
 - iotRegulator.py: 현재 온도와 설정 온도를 입력 받아 작동 제어
 - iotRegulatorTest.py: 현재 온도(cmd)와 설정 온도를 입력 받아 작동 제어
+- sys_flow.json: Node-RED flow 파일

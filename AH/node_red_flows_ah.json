@@ -1,0 +1,995 @@
+[
+    {
+        "id": "5e31e5fa.e8eb7c",
+        "type": "tab",
+        "label": "teamproject_iot",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1fe2537b.e3dedd",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "pl1",
+        "func": "msg.payload1= msg.payload;\nmsg.payload2 = (flow.get(\"storeP2\") || 10);\nflow.set(\"storeP1\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 200,
+        "wires": [
+            [
+                "4fd119d5.419258"
+            ]
+        ]
+    },
+    {
+        "id": "ba7ba9f7.960388",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "pl2",
+        "func": "msg.payload2= msg.payload;\nmsg.payload1 = (flow.get(\"storeP1\") || 10);\nflow.set(\"storeP2\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 260,
+        "wires": [
+            [
+                "4fd119d5.419258"
+            ]
+        ]
+    },
+    {
+        "id": "4fd119d5.419258",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Temp_info",
+        "func": "if(msg.payload1 < msg.payload2){\nmsg.payload = {\"d\":{\"regulator\":\"on\", \"cur_temp\":msg.payload1,\"tar_temp\":msg.payload2}};\nreturn msg;\n}\nelse {\nmsg.payload = {\"d\":{\"regulator\":\"off\",\"cur_temp\":msg.payload1,\"tar_temp\":msg.payload2}};\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 220,
+        "wires": [
+            [
+                "2d739aa7.3b60a6"
+            ]
+        ]
+    },
+    {
+        "id": "a1195ea9.c60f3",
+        "type": "ui_slider",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "현재온도",
+        "label": "현재온도",
+        "tooltip": "",
+        "group": "8ba2ac6a.816258",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "50",
+        "step": "0.1",
+        "x": 1060,
+        "y": 200,
+        "wires": [
+            [
+                "1fe2537b.e3dedd"
+            ]
+        ]
+    },
+    {
+        "id": "d2d57278.67af2",
+        "type": "ui_slider",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "셋팅온도",
+        "label": "셋팅온도",
+        "tooltip": "",
+        "group": "8ba2ac6a.816258",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "50",
+        "step": "0.5",
+        "x": 1060,
+        "y": 260,
+        "wires": [
+            [
+                "ba7ba9f7.960388",
+                "4ea3d0b0.532f"
+            ]
+        ]
+    },
+    {
+        "id": "ab226db2.31cef",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "448f127b.abd3ac",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "reg_info",
+        "func": "var evt1 = {'d':{'actuator':msg.payload.d.regulator,\"cur_temp\":msg.payload.d.cur_temp,\"tar_temp\":msg.payload.d.tar_temp}};\n\nreturn {payload:JSON.stringify(evt1)};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 540,
+        "wires": [
+            [
+                "b71560b1.b9bc1",
+                "eaf8b432.da8578"
+            ]
+        ]
+    },
+    {
+        "id": "b71560b1.b9bc1",
+        "type": "ibmiot out",
+        "z": "5e31e5fa.e8eb7c",
+        "authentication": "apiKey",
+        "apiKey": "d7f338ed.fa4628",
+        "outputType": "cmd",
+        "deviceId": "vActuator",
+        "deviceType": "vDev",
+        "eventCommandType": "status",
+        "format": "json",
+        "data": "data",
+        "qos": 0,
+        "name": "Actuator",
+        "service": "registered",
+        "x": 1220,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "eaf8b432.da8578",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1230,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "15d12891.63d487",
+        "type": "comment",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "온도 측정 -> 조절기",
+        "info": "",
+        "x": 1070,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6b96e72a.127148",
+        "type": "comment",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "조절기 -> 구동기",
+        "info": "",
+        "x": 680,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "2d739aa7.3b60a6",
+        "type": "mqtt out",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "topic": "thermo",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "16ea98c.56afae7",
+        "x": 1640,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "5543be27.f87de",
+        "type": "ibmiot in",
+        "z": "5e31e5fa.e8eb7c",
+        "authentication": "apiKey",
+        "apiKey": "d7f338ed.fa4628",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "vRegulator",
+        "applicationId": "",
+        "deviceType": "vDev",
+        "eventType": "status",
+        "commandType": "status",
+        "format": "json",
+        "name": "Regulator",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": "",
+        "allLogicalInterfaces": "",
+        "allEvents": false,
+        "allCommands": false,
+        "allFormats": true,
+        "qos": 0,
+        "x": 680,
+        "y": 520,
+        "wires": [
+            [
+                "448f127b.abd3ac",
+                "ab226db2.31cef",
+                "c3661753.78cfd8",
+                "28f1b7c8.543928"
+            ]
+        ]
+    },
+    {
+        "id": "28a286a1.fc99ca",
+        "type": "mqtt in",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "topic": "thermo",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "16ea98c.56afae7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 1050,
+        "y": 380,
+        "wires": [
+            [
+                "85ec97ae.696a88",
+                "48fe8c5e.10b194"
+            ]
+        ]
+    },
+    {
+        "id": "cf84b764.fbdd78",
+        "type": "ibmiot out",
+        "z": "5e31e5fa.e8eb7c",
+        "authentication": "apiKey",
+        "apiKey": "d7f338ed.fa4628",
+        "outputType": "evt",
+        "deviceId": "vRegulator",
+        "deviceType": "vDev",
+        "eventCommandType": "status",
+        "format": "json",
+        "data": "data",
+        "qos": 0,
+        "name": "Regulator",
+        "service": "registered",
+        "x": 1640,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "9c9fa2f7.d7218",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1630,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "85ec97ae.696a88",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "4ea3d0b0.532f",
+        "type": "ui_gauge",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Inital Setting Temperature",
+        "group": "8ba2ac6a.816258",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Inital Setting Temperature",
+        "label": "degree(°C)",
+        "format": "{{value | number:1}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1290,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "28f1b7c8.543928",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "thremo(cur_temp) ",
+        "func": "msg.payload= msg.payload.d.cur_temp;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 660,
+        "wires": [
+            [
+                "2206b484.f1775c",
+                "dca0842c.df5318",
+                "c3c61366.91fcf"
+            ]
+        ]
+    },
+    {
+        "id": "48fe8c5e.10b194",
+        "type": "json",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1230,
+        "y": 380,
+        "wires": [
+            [
+                "cf84b764.fbdd78",
+                "9c9fa2f7.d7218",
+                "8057b86c.c286c8"
+            ]
+        ]
+    },
+    {
+        "id": "2206b484.f1775c",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1230,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "c3661753.78cfd8",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "func": "msg.payload= msg.payload.d.cur_temp;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 200,
+        "wires": [
+            [
+                "a1195ea9.c60f3"
+            ]
+        ]
+    },
+    {
+        "id": "36ce21b0.2717ce",
+        "type": "comment",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "난방 작동 후 온도 변화",
+        "info": "",
+        "x": 800,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "dca0842c.df5318",
+        "type": "ui_gauge",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Current Temperature",
+        "group": "8ba2ac6a.816258",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Current Temperature",
+        "label": "degree(°C)",
+        "format": "{{value | number:1}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1380,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "c3c61366.91fcf",
+        "type": "ui_chart",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Current Temperature",
+        "group": "8ba2ac6a.816258",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "label": "Current Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1380,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8057b86c.c286c8",
+        "type": "cloudant out",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "cloudant": "",
+        "database": "temp_db",
+        "service": "kdtiot-cloudant-1627366535838-65009",
+        "payonly": true,
+        "operation": "insert",
+        "x": 1640,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e1f9e852.7ce128",
+        "type": "http request",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Web Weather API",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=a910a8faf1017c7adecf371670036566",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 930,
+        "y": 840,
+        "wires": [
+            [
+                "fb1cce5c.a2b34"
+            ]
+        ]
+    },
+    {
+        "id": "fb1cce5c.a2b34",
+        "type": "json",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1110,
+        "y": 840,
+        "wires": [
+            [
+                "a927715a.fc42b",
+                "4a0bc924.be9478",
+                "4a1cb324.e7f1ac"
+            ]
+        ]
+    },
+    {
+        "id": "a927715a.fc42b",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "e95d3183.2c274",
+        "type": "inject",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 720,
+        "y": 840,
+        "wires": [
+            [
+                "e1f9e852.7ce128",
+                "6c979984.0e5f88"
+            ]
+        ]
+    },
+    {
+        "id": "4a0bc924.be9478",
+        "type": "cloudant out",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "cloudant": "",
+        "database": "temp_db",
+        "service": "kdtiot-cloudant-1627366535838-65009",
+        "payonly": false,
+        "operation": "insert",
+        "x": 1280,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "4a1cb324.e7f1ac",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "func": "msg.payload = msg.payload.main.temp\nmsg.payload = msg.payload - 273.15\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 900,
+        "wires": [
+            [
+                "98cf9009.0e822",
+                "4dca304c.3b477"
+            ]
+        ]
+    },
+    {
+        "id": "4dca304c.3b477",
+        "type": "ui_gauge",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Seoul Temperature(Web Weather)",
+        "group": "845162c0.218a3",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Seoul Temperature",
+        "label": "degree(°C)",
+        "format": "{{value|number:2}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1640,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "98cf9009.0e822",
+        "type": "ui_text",
+        "z": "5e31e5fa.e8eb7c",
+        "group": "845162c0.218a3",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Seoul Temperature(Web Weather)",
+        "label": "Seoul Temperature",
+        "format": "{{msg.payload | number:2}}",
+        "layout": "row-center",
+        "x": 1640,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "6c979984.0e5f88",
+        "type": "http request",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Web Weather API",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://api.openweathermap.org/data/2.5/weather?q=Ansan-si&appid=a910a8faf1017c7adecf371670036566",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 930,
+        "y": 940,
+        "wires": [
+            [
+                "8d076ff6.6e2dd"
+            ]
+        ]
+    },
+    {
+        "id": "8d076ff6.6e2dd",
+        "type": "json",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1110,
+        "y": 1040,
+        "wires": [
+            [
+                "24c9f34f.a337fc",
+                "4a0bc924.be9478",
+                "51516fde.4d443"
+            ]
+        ]
+    },
+    {
+        "id": "24c9f34f.a337fc",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "func": "msg.payload = msg.payload.main.temp\nmsg.payload = msg.payload - 273.15\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 1040,
+        "wires": [
+            [
+                "ef4c47a3.ce0be8"
+            ]
+        ]
+    },
+    {
+        "id": "ef4c47a3.ce0be8",
+        "type": "ui_text",
+        "z": "5e31e5fa.e8eb7c",
+        "group": "845162c0.218a3",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Ahnsan-si Temperature(Web Weather)",
+        "label": "Ahnsan-si Temperature",
+        "format": "{{msg.payload | number:2}}",
+        "layout": "row-center",
+        "x": 1650,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "51516fde.4d443",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "caa81ee9.94193",
+        "type": "http request",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Data.go.kr API",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=9sRRqqZ%2Fkg2Esv5XSlQtvwf%2FLoPoUUYwlVdsIAdLE9N4O9Lf0BQnGCYxSJ9U30H4bnNLfWrAlJoBOnK8QDcIbw%3D%3D&nx=56&ny=122",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 920,
+        "y": 1240,
+        "wires": [
+            [
+                "36a749c6.6a8206"
+            ]
+        ]
+    },
+    {
+        "id": "ec6716bb.bc94d8",
+        "type": "inject",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 710,
+        "y": 1240,
+        "wires": [
+            [
+                "caa81ee9.94193"
+            ]
+        ]
+    },
+    {
+        "id": "7026c159.009e3",
+        "type": "debug",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "36a749c6.6a8206",
+        "type": "json",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1110,
+        "y": 1240,
+        "wires": [
+            [
+                "7026c159.009e3",
+                "c69c2401.1fb128",
+                "ce5bf405.44f248"
+            ]
+        ]
+    },
+    {
+        "id": "c69c2401.1fb128",
+        "type": "function",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "",
+        "func": "msg.payload = msg.payload.response.body.items.item[3].obsrValue\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 1240,
+        "wires": [
+            [
+                "ae03fb8b.3f3e48"
+            ]
+        ]
+    },
+    {
+        "id": "ae03fb8b.3f3e48",
+        "type": "ui_gauge",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "Jeongwang-dong Temperature(Data.go.kr)",
+        "group": "ebbf5436.b8f608",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Jeongwang-dong Temperature",
+        "label": "degree(°C)",
+        "format": "{{value|number:2}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1640,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "ce5bf405.44f248",
+        "type": "cloudant out",
+        "z": "5e31e5fa.e8eb7c",
+        "name": "temp_db",
+        "cloudant": "",
+        "database": "temp_db",
+        "service": "kdtiot-cloudant-1627366535838-65009",
+        "payonly": false,
+        "operation": "insert",
+        "x": 1300,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "8ba2ac6a.816258",
+        "type": "ui_group",
+        "name": "Heating Control System",
+        "tab": "e3245e6c.fe0ed8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "d7f338ed.fa4628",
+        "type": "ibmiot",
+        "name": "kdt",
+        "keepalive": "60",
+        "serverName": "",
+        "cleansession": true,
+        "appId": "",
+        "shared": false
+    },
+    {
+        "id": "16ea98c.56afae7",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "http://test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "845162c0.218a3",
+        "type": "ui_group",
+        "name": "City Temperature",
+        "tab": "e3245e6c.fe0ed8",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ebbf5436.b8f608",
+        "type": "ui_group",
+        "name": "City_Temperature",
+        "tab": "e3245e6c.fe0ed8",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "e3245e6c.fe0ed8",
+        "type": "ui_tab",
+        "name": "Home1",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

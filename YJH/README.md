@@ -6,7 +6,7 @@
 3. 현재 온도가 설정 온도보다 높을 시, 난방 시스템 작동 중단
    > 난방 시스템이 작동되지 않는 동안, 10초에 0.1도 씩 현재 온도가 낮아진다.
 
-### Node-RED 플로우
+### Node-RED Flow
 ![Alt text](images/sys_flow.png)
 
 

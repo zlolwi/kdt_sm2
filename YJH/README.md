@@ -7,7 +7,7 @@
    > 난방 시스템이 작동되지 않는 동안, 10초에 0.1도 씩 현재 온도가 낮아진다.
 
 ### Node-RED 플로우
-![Alt text](/images/sys_flow.png)
+![Alt text](images/sys_flow.png)
 
 
 

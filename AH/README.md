@@ -11,5 +11,5 @@
 ![image](https://user-images.githubusercontent.com/26236857/127735899-969379d0-67ac-4c29-b15f-847a3a7c008c.png)
 
 ### Python Code
-iotReg.py : Regulator(구동기) Python
-iotActuatorBulb.py : GUI가 들어간 Python - Valve PNG 파일로 변경예정
+1. iotReg.py : Regulator(구동기) Python
+2. iotActuatorBulb.py : GUI가 들어간 Python - Valve PNG 파일로 변경예정

@@ -8,7 +8,7 @@
 
 ### Node-RED Flow
 - Weather API Node-RED Flow
-![image](https://user-images.githubusercontent.com/26236857/127735899-969379d0-67ac-4c29-b15f-847a3a7c008c.png)
+![image](https://user-images.githubusercontent.com/26236857/127741693-7f8253ac-6db7-4154-9181-7d932744faf2.png)
 
 ### Python Code
 1. iotReg.py : Regulator(구동기) Python

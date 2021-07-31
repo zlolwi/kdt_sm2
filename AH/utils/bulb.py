@@ -11,12 +11,12 @@ signal.signal(signal.SIGINT, signal_handler)
 root = Tk()
 
 # Add Title & set the Geomtry
-root.title('IOT Lamp')
-root.geometry("500x700")
+root.title('IOT Actuator')
+root.geometry("700x500")
 
 # Define Our Images
-on = PhotoImage(file = "images/bulb_on.png")
-off = PhotoImage(file = "images/bulb_off.png")
+on = PhotoImage(file = "images/actuator_on.png")
+off = PhotoImage(file = "images/actuator_off.png")
 
 def bulbOff():
     bulb.config(image = off)

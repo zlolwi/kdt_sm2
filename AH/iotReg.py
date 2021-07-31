@@ -50,20 +50,21 @@ def on_message(client, userdata, msg):
                           "tar_temp": msg.payload['d']['tar_temp']}}
             print("")
             print("ACTING")
-            time.sleep(3)
+            time.sleep(10)
             msg.payload['d']['cur_temp'] += 0.5
             print("Current temperature is %.1f" % (msg.payload['d']['cur_temp']))
 
             deviceCli.publishEvent("status", "json", data, qos=0)
 
             print("----------------------------------")
+
             if (msg.payload['d']['cur_temp'] >= msg.payload['d']['tar_temp']):
                 data = {'d': {'regulator': "off",
                               "cur_temp": msg.payload['d']['cur_temp'],
                               "tar_temp": msg.payload['d']['tar_temp']}}
                 print("Current temperature is %.1f" % (msg.payload['d']['cur_temp']))
                 deviceCli.publishEvent("status", "json", data, qos=0)
-                time.sleep(3)
+                time.sleep(1)
                 continue
 
         else:
@@ -78,14 +79,15 @@ def on_message(client, userdata, msg):
 
             deviceCli.publishEvent("status", "json", data, qos=0)
 
-            print("----------------------------------*")
+            print("----------------------------------")
+
             if (msg.payload['d']['cur_temp'] < msg.payload['d']['tar_temp']):
                 data = {'d': {'regulator': "on",
                               "cur_temp": msg.payload['d']['cur_temp'],
                               "tar_temp": msg.payload['d']['tar_temp']}}
                 deviceCli.publishEvent("status", "json", data, qos=0)
                 print("Current temperature is %.1f" % (msg.payload['d']['cur_temp']))
-                time.sleep(3)
+                time.sleep(1)
                 continue
 
     return msg

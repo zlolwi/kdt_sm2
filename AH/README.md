@@ -7,13 +7,9 @@
    > 난방 시스템이 작동되지 않는 동안, 10초에 0.1도 씩 현재 온도가 낮아진다.
 
 ### Node-RED Flow
-![Alt text](images/sys_flow.png)
+- Weather API Node-RED Flow
+![image](https://user-images.githubusercontent.com/26236857/127735899-969379d0-67ac-4c29-b15f-847a3a7c008c.png)
 
-
-
-- iotActuator.py: Sub iotReg.py or iotRegulator.py
-- iotActuatorTest.py: Sub iotRegulatorTest.py
-- iotReg.py: NODE-RED Dashboard를 사용하여 슬라이더(온도계) 2개로 현재 온도와 설정 온도를 입력 받아 작동 제어
-- iotRegulator.py: 현재 온도와 설정 온도를 입력 받아 작동 제어
-- iotRegulatorTest.py: 현재 온도(cmd)와 설정 온도를 입력 받아 작동 제어
-- sys_flow.json: Node-RED flow 파일
+### Python Code
+iotReg.py : Regulator(구동기) Python
+iotActuatorBulb.py : GUI가 들어간 Python - Valve PNG 파일로 변경예정

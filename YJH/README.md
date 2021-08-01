@@ -12,7 +12,7 @@
 - Heating system with python & mqtt
 
 #### heating sys flow
-![Alt text](images/heating sys.png)
+![Alt text](images/heating_sys.png)
 - Heating sytstem with Ibm cloud
 
 

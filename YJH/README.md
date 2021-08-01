@@ -9,18 +9,18 @@
 ### Node-RED Flow
 #### sys_flow
 ![Alt text](images/sys_flow.png)
-- Heating system with python & mqtt
+: Heating system with python & mqtt
 
 #### heating sys flow
 ![Alt text](images/heating_sys.png)
-- Heating sytstem with Ibm cloud
+: Heating sytstem with Ibm cloud
 
 
-
+### CODES
 - iotActuator.py: Sub iotReg.py or iotRegulator.py
 - iotActuatorTest.py: Sub iotRegulatorTest.py
 - iotReg.py: NODE-RED Dashboard를 사용하여 슬라이더(온도계) 2개로 현재 온도와 설정 온도를 입력 받아 작동 제어
 - iotRegulator.py: 현재 온도와 설정 온도를 입력 받아 작동 제어
 - iotRegulatorTest.py: 현재 온도(cmd)와 설정 온도를 입력 받아 작동 제어
 - sys_flow.json: Node-RED flow 파일
-- heating sys flow.json: Node-RED flow 파일2. 대쉬보드만을 이용하여 난방 조절
+- heating_sys_flow.json: Node-RED flow 파일2. 대쉬보드만을 이용하여 난방 조절

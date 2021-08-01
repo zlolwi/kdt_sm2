@@ -9,11 +9,11 @@
 ### Node-RED Flow
 #### sys_flow
 ![Alt text](images/sys_flow.png)
-- Heating system with python & mqtt
+: Heating system with python & mqtt
 
 #### heating sys flow
 ![Alt text](images/heating_sys.png)
-- Heating sytstem with Ibm cloud
+: Heating sytstem with Ibm cloud
 
 
 

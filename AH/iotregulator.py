@@ -29,6 +29,7 @@ while True:
         json.dumps(data)
         print("")
         time.sleep(3)
+
         if room_temp >= setting_temp:
             regulator = "off"
             print("구동기가 {} 됩니다.".format(regulator))
@@ -38,6 +39,7 @@ while True:
             print("")
             time.sleep(3)
             continue
+
     if room_temp >= setting_temp:
         regulator = "off"
         print("구동기가 {} 되었습니다.".format(regulator))
@@ -48,6 +50,7 @@ while True:
         json.dumps(data)
         print("")
         time.sleep(3)
+
         if room_temp < setting_temp:
             regulator = "on"
             print("구동기가 {} 됩니다.".format(regulator))

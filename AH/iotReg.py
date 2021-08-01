@@ -1,12 +1,4 @@
-# iotReg.py: Node-red 대쉬보드를 이용하여 제어
-# sub slider values & pub to Actuator
-# 작성자: 윤지희
-# 안휘
-# 최초 작성일: 2021년 7월 29일
-# 최근 수정일: 2021년 7월 29일
-
 import wiotp.sdk
-import sys
 import json
 import paho.mqtt.client as mqtt
 import time

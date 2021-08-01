@@ -9,7 +9,6 @@ deviceOptions = {
 
 actuator = 'off'
 
-
 def commandProcessor(cmd):
     global actuator
     if cmd.data["d"]["actuator"]:
@@ -24,11 +23,9 @@ def commandProcessor(cmd):
             data = {"d": {"actuator": "off"}}
         deviceCli.publishEvent("status", "json", data, qos=0)
 
-
 deviceCli = wiotp.sdk.device.DeviceClient(deviceOptions)
 deviceCli.commandCallback = commandProcessor
 deviceCli.connect()
-
 
 def periodicPublish():
     data = {"d": {"actuator": actuator}}

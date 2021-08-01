@@ -18,5 +18,7 @@
 
 
 ### Python Code
-1. iotReg.py : Regulator(구동기) Python
-2. iotActuatorBulb.py : GUI가 들어간 Python - Valve PNG 파일로 변경예정
+1. iotReg.py : Regulator(조절기) Python Code
+2. iotActuatorBulb.py : Actuator(구동기) Python Code
+3. Utills-Bulb.py : tkinter로 구현한 Actuator GUI Python Code
+4. image-actuator_on, actuator_off : On/Off Png File
